@@ -1,11 +1,11 @@
 package lionpostproject.post.user;
 
 
-import lionpostproject.post.lion_school.user.application.reqeust.JoinRequest;
-import lionpostproject.post.lion_school.user.dto.UserDTO;
-import lionpostproject.post.lion_school.user.entity.User;
-import lionpostproject.post.lion_school.user.repostiory.JpaUserRepository;
-import lionpostproject.post.lion_school.user.util.JoinMapper;
+import lionpostproject.hjs.user.controller.reqeust.JoinRequest;
+import lionpostproject.hjs.user.dto.UserDTO;
+import lionpostproject.hjs.user.entity.User;
+import lionpostproject.hjs.user.repostiory.JpaUserRepository;
+import lionpostproject.hjs.user.util.JoinMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;

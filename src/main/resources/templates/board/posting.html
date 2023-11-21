@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+          integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+  </script>
+</head>
+<body>
+
+<!--<link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.8/dist/full.min.css" rel="stylesheet" type="text/css"/>-->
+<!--<script src="https://cdn.tailwindcss.com"></script>-->
+
+<!--<div class="navbar bg-base-100">-->
+<!--  <div class="navbar-start">-->
+<!--    <div class="dropdown">-->
+<!--      <label tabindex="0" class="btn btn-ghost btn-circle">-->
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"-->
+<!--             stroke="currentColor">-->
+<!--          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>-->
+<!--        </svg>-->
+<!--      </label>-->
+<!--      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">-->
+<!--        <li><a>게시물 리스트</a></li>-->
+<!--        <li><a>게시물 작성</a></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="navbar-center">-->
+<!--    <a class="btn btn-ghost text-xl">SIMPLE</a>-->
+<!--  </div>-->
+<!--  <div class="navbar-end">-->
+
+<!--  </div>-->
+<!--</div>-->
+
+<div class="main_form">
+  <div class="form_list" id="form_item_save">
+    <form>
+
+      <div>
+        <div class="form_item_id">
+          <label for="item_title">제목</label>
+          <input type="text" id="item_title" placeholder="제목 입력해주세요" value maxlength="10">
+        </div>
+      </div>
+
+      <div class="form_item_username">
+        <label for="item_username">작성자</label>
+        <input type="text" id="item_username" placeholder="작성자 이름" value maxlength="10">
+      </div>
+
+      <div class="form_item_day">
+        <label for="item_day">작성일</label>
+        <input type="date" id="item_day" placeholder="작성일 입력해주세요" value maxlength="10">
+      </div>
+
+      <div class="form_item_post">
+        <label for="item_content">내용</label>
+        <textarea name="content" id="item_content" rows="5" cols="40" placeholder="0이상 500미만으로 작성해주세요"></textarea>
+      </div>
+      <div class="btn_account">
+        <button type="submit" class="account">작성하기</button>
+      </div>
+      <div class="btn_account">
+        <a href="/api-main">메인 페이지로 이동</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script th:inline="javascript" type="text/javascript">
+  //save 요청시
+  const postUpForm = document.getElementById("form_item_save")
+
+  postUpForm.addEventListener('submit' , (e) => {
+    e.preventDefault();
+
+    axios.post("/api/user/new" , {
+      title : document.getElementById("item_title").value,
+      author : document.getElementById("item_username").value,
+      dateCreate : document.getElementById("item_day").value,
+      writing : document.getElementById("item_content").value
+    }).then((res) => { // 결과값 출력 , 전달
+      console.log(res)
+      location.href = "/api/user/list"
+    }).catch((e) => { // 예외 처리
+      alert(e);
+    })
+  })
+
+</script>
+</body>
+</html>

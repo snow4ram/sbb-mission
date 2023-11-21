@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+</head>
+<body>
+<div id="signUp-form">
+    <form th:action>
+
+        <label for="sign_up_name">이름</label>
+        <input type="text" name="name" id="sign_up_name">
+
+        <label for="sign_up_email">ID</label>
+        <input type="text" name="email" id="sign_up_email">
+
+        <label for="sign_up_password">Password</label>
+        <input type="text" name="password" id="sign_up_password">
+
+        <label for="sign_up_birthday">생일</label>
+        <input type="date" name="birthday" id="sign_up_birthday">
+
+        <button type="submit"> 로그인 </button>
+    </form>
+</div>
+<script th:inline="javascript" type="text/javascript">
+    //const csrfToken = document.querySelector("meta[name='_csrf']").content;
+
+    const signUpApi = document.getElementById("signUp-form");
+
+    let user_name;
+    let user_email;
+    let user_password;
+    let user_birthday;
+
+
+    signUpApi.addEventListener('submit', (e) => {
+
+        e.preventDefault();
+
+
+        user_name = document.getElementById("sign_up_name").value;
+
+        user_email = document.getElementById("sign_up_email").value;
+
+        user_password = document.getElementById("sign_up_password").value;
+
+        user_birthday = document.getElementById("sign_up_birthday").value;
+
+
+        if (user_name === null || user_name === "") {
+            return;
+        }
+
+
+        axios.post("/sign-up" ,  {
+            name : user_name,
+
+            email : user_email,
+
+            password : user_password,
+
+            birthday : user_birthday
+        // },{
+        //     headers:{
+        //         'X-CSRF-TOKEN': csrfToken
+        //     }
+        }).then(function(response) {
+            location.href = "/login";
+        }).catch(function(e) {
+            console.log(e);
+        });
+    })
+</script>
+</body>
+</html>

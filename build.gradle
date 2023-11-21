@@ -30,6 +30,9 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	//implementation "org.springframework.boot:spring-boot-starter-security"
+
+
 	//필드에서 사용하는 MapStruct Mapper 적용하기 위함
 	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 
