@@ -36,6 +36,7 @@ public class User {
     @Column(nullable = false)
     private LocalDate birthday;
 
+    //@OneToMany(mappedBy = "user" ,cascade = CascadeType.PERSIST)
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
 

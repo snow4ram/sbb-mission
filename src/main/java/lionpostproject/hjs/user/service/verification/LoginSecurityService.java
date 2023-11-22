@@ -1,4 +1,4 @@
-package lionpostproject.hjs.user.service.security;
+package lionpostproject.hjs.user.service.verification;
 
 import lionpostproject.hjs.user.controller.reqeust.LoginRequest;
 import lionpostproject.hjs.user.entity.User;

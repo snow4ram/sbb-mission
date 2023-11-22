@@ -27,19 +27,13 @@ public class LoginController {
     private final UserService userService;
 
 
-    @GetMapping("/main-page")
-    public String mainPage() {
-        return "/login/main_page";
-    }
-
-
-    @GetMapping("/sign-up")
+    @GetMapping("/join")
     public String signUpPage() {
-        return "/login/sign_up";
+        return "/membership/join";
     }
 
 
-    @PostMapping("/sign-up")
+    @PostMapping("/join")
     public ResponseEntity<LoginResponse> signUpForm(@Validated @RequestBody final JoinRequest joinRequest , final HttpSession session) {
 
 
@@ -55,28 +49,29 @@ public class LoginController {
     @GetMapping("/login")
     public String home(HttpServletRequest servletRequest) {
         servletRequest.getSession(false);
-        return "/login/home";
+        return "membership/login";
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginForm(@Validated @RequestBody final LoginRequest loginRequest ,final HttpSession session) {
 
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginForm(@RequestBody final LoginRequest loginRequest ,final HttpSession session) {
 
         UserDTO login = userService.login(loginRequest, session);
 
         LoginResponse loginResponse = new LoginResponse(login);
 
         return ResponseEntity.ok().body(loginResponse);
+
     }
 
 
-
-    @PostMapping("/logout")
-    public ResponseEntity<Void> logout(final HttpSession session) {
+    @GetMapping("/logout")
+    public String logout(final HttpSession session) {
 
         userService.logout(session);
 
-        return ResponseEntity.ok().build();
+        return "redirect:/login";
     }
+
 
 }

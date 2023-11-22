@@ -9,6 +9,8 @@
     </script>
 </head>
 <body>
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
 <div id="signUp-form">
     <form th:action>
 
@@ -24,7 +26,7 @@
         <label for="sign_up_birthday">생일</label>
         <input type="date" name="birthday" id="sign_up_birthday">
 
-        <button type="submit"> 로그인 </button>
+        <button type="submit"> 회원가입 </button>
     </form>
 </div>
 <script th:inline="javascript" type="text/javascript">
@@ -57,7 +59,7 @@
         }
 
 
-        axios.post("/sign-up" ,  {
+        axios.post("/join" ,  {
             name : user_name,
 
             email : user_email,

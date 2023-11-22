@@ -3,6 +3,8 @@ package lionpostproject.hjs.blog.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lionpostproject.hjs.blog.controller.request.PostRequest;
+import lionpostproject.hjs.blog.entity.Post;
+import lionpostproject.hjs.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -11,6 +13,8 @@ import lionpostproject.hjs.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 
 @Slf4j
 @Controller
@@ -18,26 +22,27 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final PostService postService;
+    private final PostService posts;
 
 
     @GetMapping("/list")
     public String welcome(Model model) {
-
+        List<Post> postAll = posts.findAll();
+        model.addAttribute("postAll", postAll);
         return "/board/list";
     }
 
 
-    @GetMapping("/new")
+    @GetMapping("/write")
     public String created() {
-        return "/board/posting";
+        return "/board/write";
 
     }
 
-    @PostMapping("/new")
-    public ResponseEntity<Void> create(@RequestBody PostRequest postRequest , HttpSession session) {
+    @PostMapping("/write")
+    public ResponseEntity<Void> write(@RequestBody PostRequest postRequest , User user,  HttpSession session) {
 
-        postService.write(postRequest , session);
+        posts.write(postRequest , session);
 
         return ResponseEntity.ok().build();
 

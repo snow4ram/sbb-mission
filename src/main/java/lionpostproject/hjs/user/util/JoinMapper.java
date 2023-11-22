@@ -3,7 +3,6 @@ package lionpostproject.hjs.user.util;
 
 import lionpostproject.hjs.user.entity.User;
 import lionpostproject.hjs.user.controller.reqeust.JoinRequest;
-import lionpostproject.hjs.user.dto.UserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -15,5 +14,6 @@ public interface JoinMapper {
 
     User user(JoinRequest joinRequest);
 
-    UserDTO userDTO(User user);
+
+
 }

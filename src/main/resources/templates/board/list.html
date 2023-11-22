@@ -6,6 +6,7 @@
   <title>Document</title>
 </head>
 <body>
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
 
 <div>
   <table class="table">
@@ -19,23 +20,21 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="post : ${allPost}">
-      <td><a href="post_list.html"
+    <tr th:each="post : ${postAll}">
+      <td><a href="/"
              th:href="@{/api-findPost/{findPostId}(findPostId=${post.getId()})}"
              th:text="${post.getId()}">순서</a></td>
       <td th:text="${post.getTitle()}"></td>
-      <td th:text="${post.getWriter()}"></td>
-      <td th:text="${post.getCreation_date()}"></td>
+      <td th:text="${post.getAuthor()}"></td>
+      <td th:text="${post.getDateCreate()}"></td>
       <td th:text="${post.getWriting()}"></td>
-      <td><a href="/api/users"
-             th:href="@{/api-findPost/{findPostId}(findPostId=${userId})}"></a>
     </tr>
     </tbody>
   </table>
 
-  <div>
-    <a href="/api/user/new">POST 작성</a>
-  </div>
+  <form id="postWriteForm" method="get" action="/api/user/write">
+    <button type="submit">글 작성</button>
+  </form>
 
 </div>
 </body>

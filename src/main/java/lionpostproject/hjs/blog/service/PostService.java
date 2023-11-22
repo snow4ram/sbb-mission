@@ -10,8 +10,12 @@ import lionpostproject.hjs.user.repostiory.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import static lionpostproject.hjs.user.service.UserServiceIml.SESSION_KEY;
 
 @Slf4j
 @Service
@@ -22,8 +26,10 @@ public class PostService {
 
     private final JpaPostRepository jpaPostRepository;
 
-    private static final String SESSION_KEY = "id";
 
+
+    //post save
+    @Transactional
     public void write(PostRequest postRequest , HttpSession session) {
 
         String userId = (String) session.getAttribute(SESSION_KEY);
@@ -43,5 +49,17 @@ public class PostService {
 
         jpaPostRepository.save(post);
 
+    }
+
+    //post search
+    public List<Post> search(String titleName) {
+        return jpaPostRepository.findByTitle(titleName);
+    }
+
+
+    //findAll
+    @Transactional(readOnly = true)
+    public List<Post> findAll() {
+        return jpaPostRepository.findAll();
     }
 }

@@ -32,7 +32,7 @@ public class JoinMapperImpl implements JoinMapper {
     }
 
     @Override
-    public UserDTO userDTO(User user) {
+    public JoinRequest joinRequest(User user) {
         if ( user == null ) {
             return null;
         }

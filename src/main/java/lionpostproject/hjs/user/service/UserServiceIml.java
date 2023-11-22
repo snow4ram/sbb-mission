@@ -1,6 +1,5 @@
 package lionpostproject.hjs.user.service;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lionpostproject.hjs.user.controller.reqeust.JoinRequest;
 import lionpostproject.hjs.user.controller.reqeust.LoginRequest;
@@ -8,13 +7,14 @@ import lionpostproject.hjs.user.dto.UserDTO;
 import lionpostproject.hjs.user.dto.UserDTOMapper;
 import lionpostproject.hjs.user.entity.User;
 import lionpostproject.hjs.user.repostiory.JpaUserRepository;
-import lionpostproject.hjs.user.service.security.LoginSecurityService;
-import lionpostproject.hjs.user.service.security.SignUpSecurityService;
+import lionpostproject.hjs.user.service.verification.LoginSecurityService;
+import lionpostproject.hjs.user.service.verification.SignUpSecurityService;
 import lionpostproject.hjs.user.util.JoinMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 @Slf4j
 @Service
@@ -29,7 +29,7 @@ public class UserServiceIml implements UserService {
     private final UserDTOMapper userDTOMapper;
 
 
-    private final JoinMapper joinMapper;
+    private final JoinMapper mappers;
 
 
     private final SignUpSecurityService signUpSecurityService;
@@ -38,20 +38,16 @@ public class UserServiceIml implements UserService {
     private final LoginSecurityService loginSecurityService;
 
 
-    private static final String SESSION_KEY = "id";
+    public static final String SESSION_KEY = "id";
 
     @Override
     public UserDTO join(JoinRequest joinRequest ,final HttpSession session) {
 
+        //validateRequest(joinRequest);
         //아이디 중복 검증
-        boolean account = signUpSecurityService.checkForDuplicateUserId(joinRequest);
+        signUpSecurityService.checkForDuplicateUserId(joinRequest);
 
-
-        if (account) {
-            throw new RuntimeException("아이디가 중복 상태 입니다.");
-        }
-
-        User user = joinMapper.user(joinRequest);
+        User user = mappers.user(joinRequest);
 
         session.setAttribute(SESSION_KEY ,user.getEmail());
 
@@ -61,9 +57,10 @@ public class UserServiceIml implements UserService {
     }
 
     @Override
-    public UserDTO login(LoginRequest loginRequest,final HttpSession session) {
+    public UserDTO login(LoginRequest loginRequest , final HttpSession session) {
 
         User user = loginSecurityService.userValidateCredentials(loginRequest);
+
         if (user != null) {
             session.setAttribute(SESSION_KEY , user.getEmail());
         }else {
@@ -74,6 +71,30 @@ public class UserServiceIml implements UserService {
 
     @Override
     public void logout(HttpSession session) {
-
+        session.removeAttribute(SESSION_KEY);
     }
+
+//    private static void validateRequest(JoinRequest joinRequest) {
+//        if (joinRequest == null) {
+//            throw new RuntimeException();
+//        }
+//
+//        if (joinRequest.getEmail() == null || joinRequest.getEmail().trim().length() == 0 ) {
+//            throw new RuntimeException();
+//        }
+//
+//        if (joinRequest.getName() == null || joinRequest.getName().isEmpty()) {
+//            throw new RuntimeException();
+//        }
+//
+//        if (joinRequest.getPassword() == null || joinRequest.getPassword().isEmpty()) {
+//            throw new RuntimeException();
+//        }
+//        if (joinRequest.getBirthday() == null) {
+//            throw new RuntimeException();
+//        }
+//
+//    }
+
+
 }

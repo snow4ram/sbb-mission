@@ -10,6 +10,7 @@
   </script>
 </head>
 <body>
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
 
 <!--<link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.8/dist/full.min.css" rel="stylesheet" type="text/css"/>-->
 <!--<script src="https://cdn.tailwindcss.com"></script>-->
@@ -53,11 +54,6 @@
         <input type="text" id="item_username" placeholder="작성자 이름" value maxlength="10">
       </div>
 
-      <div class="form_item_day">
-        <label for="item_day">작성일</label>
-        <input type="date" id="item_day" placeholder="작성일 입력해주세요" value maxlength="10">
-      </div>
-
       <div class="form_item_post">
         <label for="item_content">내용</label>
         <textarea name="content" id="item_content" rows="5" cols="40" placeholder="0이상 500미만으로 작성해주세요"></textarea>
@@ -79,10 +75,9 @@
   postUpForm.addEventListener('submit' , (e) => {
     e.preventDefault();
 
-    axios.post("/api/user/new" , {
+    axios.post("/api/user/write" , {
       title : document.getElementById("item_title").value,
       author : document.getElementById("item_username").value,
-      dateCreate : document.getElementById("item_day").value,
       writing : document.getElementById("item_content").value
     }).then((res) => { // 결과값 출력 , 전달
       console.log(res)
