@@ -1,12 +1,13 @@
 package lionpostproject.hjs.user.util;
 
+import java.time.LocalDate;
 import javax.annotation.processing.Generated;
 import lionpostproject.hjs.user.controller.reqeust.JoinRequest;
 import lionpostproject.hjs.user.entity.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-11-22T17:34:18+0900",
+    date = "2023-11-27T10:29:37+0900",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 public class JoinMapperImpl implements JoinMapper {
@@ -17,13 +18,18 @@ public class JoinMapperImpl implements JoinMapper {
             return null;
         }
 
-        User.UserBuilder user = User.builder();
+        String name = null;
+        String email = null;
+        String password = null;
+        LocalDate birthday = null;
 
-        user.name( joinRequest.getName() );
-        user.email( joinRequest.getEmail() );
-        user.password( joinRequest.getPassword() );
-        user.birthday( joinRequest.getBirthday() );
+        name = joinRequest.getName();
+        email = joinRequest.getEmail();
+        password = joinRequest.getPassword();
+        birthday = joinRequest.getBirthday();
 
-        return user.build();
+        User user = new User( name, email, password, birthday );
+
+        return user;
     }
 }

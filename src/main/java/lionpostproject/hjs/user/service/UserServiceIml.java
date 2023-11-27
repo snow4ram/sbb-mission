@@ -43,9 +43,7 @@ public class UserServiceIml implements UserService {
     @Override
     public UserDTO join(JoinRequest joinRequest ,final HttpSession session) {
 
-        //validateRequest(joinRequest);
-        //아이디 중복 검증
-        signUpSecurityService.checkForDuplicateUserId(joinRequest);
+        signUpSecurityService.checkForDuplicateUserId(joinRequest.getEmail());
 
         User user = mappers.user(joinRequest);
 
@@ -74,27 +72,7 @@ public class UserServiceIml implements UserService {
         session.removeAttribute(SESSION_KEY);
     }
 
-//    private static void validateRequest(JoinRequest joinRequest) {
-//        if (joinRequest == null) {
-//            throw new RuntimeException();
-//        }
-//
-//        if (joinRequest.getEmail() == null || joinRequest.getEmail().trim().length() == 0 ) {
-//            throw new RuntimeException();
-//        }
-//
-//        if (joinRequest.getName() == null || joinRequest.getName().isEmpty()) {
-//            throw new RuntimeException();
-//        }
-//
-//        if (joinRequest.getPassword() == null || joinRequest.getPassword().isEmpty()) {
-//            throw new RuntimeException();
-//        }
-//        if (joinRequest.getBirthday() == null) {
-//            throw new RuntimeException();
-//        }
-//
-//    }
+
 
 
 }

@@ -4,38 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+          integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+  </script>
 </head>
 <body>
 <nav th:replace="~{navbar :: navbarFragment}"></nav>
 
 <div>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>이름</th>
-      <th>날짜</th>
-      <th>작성</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="post : ${postAll}">
-      <td><a href="/"
-             th:href="@{/api-findPost/{findPostId}(findPostId=${post.getId()})}"
-             th:text="${post.getId()}">순서</a></td>
-      <td th:text="${post.getTitle()}"></td>
-      <td th:text="${post.getAuthor()}"></td>
-      <td th:text="${post.getDateCreate()}"></td>
-      <td th:text="${post.getWriting()}"></td>
-    </tr>
-    </tbody>
-  </table>
+  <div id="form_item_search">
+    <form method="get" action="/api/user/search">
+      <label>
+        <input type="text" name="title" placeholder="Search...">
+      </label>
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>이름</th>
+        <th>이름</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="post : ${postAll}">
+        <td><a href="/"
+               th:href="@{/api/user/view/{postId}(postId=${post.getId()})}"
+               th:text="${post.getId()}">순서</a></td>
+        <td th:text="${post.getTitle()}"></td>
+        <td th:text="${post.getAuthor()}"></td>
+        <td th:text="${post.getDateCreate()}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <!--글 작성 -->
   <form id="postWriteForm" method="get" action="/api/user/write">
     <button type="submit">글 작성</button>
   </form>
-
 </div>
+
 </body>
 </html>

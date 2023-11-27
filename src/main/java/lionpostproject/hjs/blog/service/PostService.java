@@ -26,8 +26,6 @@ public class PostService {
 
     private final JpaPostRepository jpaPostRepository;
 
-
-
     //post save
     @Transactional
     public void write(PostRequest postRequest , HttpSession session) {
@@ -53,7 +51,12 @@ public class PostService {
 
     //post search
     public List<Post> search(String titleName) {
-        return jpaPostRepository.findByTitle(titleName);
+        return jpaPostRepository.searchTitle(titleName);
+    }
+
+    @Transactional(readOnly = true)
+    public Post findPosts(final Long id) {
+        return jpaPostRepository.findById(id).orElseThrow();
     }
 
 
@@ -61,5 +64,10 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<Post> findAll() {
         return jpaPostRepository.findAll();
+    }
+
+    @Transactional
+    public void deletePost(final Long id) {
+        jpaPostRepository.deleteByIdInQuery(id);
     }
 }

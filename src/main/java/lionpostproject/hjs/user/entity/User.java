@@ -21,13 +21,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private Long authorId;
-
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false ,unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -41,8 +38,7 @@ public class User {
     private List<Post> posts = new ArrayList<>();
 
     @Builder
-    public User(Long authorId, String name, String email, String password, LocalDate birthday) {
-        this.authorId = authorId;
+    public User(String name, String email, String password, LocalDate birthday) {
         this.name = name;
         this.email = email;
         this.password = password;

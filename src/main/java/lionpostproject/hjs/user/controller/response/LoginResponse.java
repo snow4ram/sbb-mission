@@ -10,8 +10,6 @@ public class LoginResponse {
 
     private final Long id;
 
-    private final Long authorId;
-
     private final String name;
 
     private final String email;
@@ -23,7 +21,6 @@ public class LoginResponse {
 
     public LoginResponse(UserDTO userDTO) {
         this.id = userDTO.id();
-        this.authorId = userDTO.authorId();
         this.name = userDTO.name();
         this.email = userDTO.email();
         this.password = userDTO.password();

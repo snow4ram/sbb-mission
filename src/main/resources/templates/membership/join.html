@@ -39,11 +39,11 @@
     let user_password;
     let user_birthday;
 
-
     signUpApi.addEventListener('submit', (e) => {
 
-        e.preventDefault();
 
+
+        e.preventDefault();
 
         user_name = document.getElementById("sign_up_name").value;
 
@@ -52,11 +52,6 @@
         user_password = document.getElementById("sign_up_password").value;
 
         user_birthday = document.getElementById("sign_up_birthday").value;
-
-
-        if (user_name === null || user_name === "") {
-            return;
-        }
 
 
         axios.post("/join" ,  {

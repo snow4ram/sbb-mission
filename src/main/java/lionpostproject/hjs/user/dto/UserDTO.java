@@ -8,14 +8,10 @@ import jakarta.persistence.Id;
 import java.time.LocalDate;
 
 public record UserDTO(
-
         Long id,
-        Long authorId,
-
         String name,
         String email,
         String password,
-
         LocalDate birthday
 
 ) {

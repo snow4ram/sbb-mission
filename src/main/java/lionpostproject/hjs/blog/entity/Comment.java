@@ -1,6 +1,7 @@
 package lionpostproject.hjs.blog.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,20 +17,22 @@ public class Comment {
     private Long id;
 
     @Column(nullable = false)
-    private String writer;
+    private String replyUser; //댓글 작성자.
 
     @Column(nullable = false)
-    private String comments;
+    private String comments; // 댓글
 
     @Column(nullable = false)
-    private LocalDateTime createTime;
+    private LocalDateTime createTime; //댓글 작성일.
 
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Comment(String writer, String comments, LocalDateTime createTime) {
-        this.writer = writer;
+
+    @Builder
+    public Comment(String replyUser, String comments, LocalDateTime createTime) {
+        this.replyUser = replyUser;
         this.comments = comments;
         this.createTime = createTime;
     }
