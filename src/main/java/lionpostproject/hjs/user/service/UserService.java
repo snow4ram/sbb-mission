@@ -1,6 +1,5 @@
 package lionpostproject.hjs.user.service;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lionpostproject.hjs.user.controller.reqeust.JoinRequest;
 import lionpostproject.hjs.user.controller.reqeust.LoginRequest;

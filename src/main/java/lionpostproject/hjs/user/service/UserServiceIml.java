@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpSession;
 import lionpostproject.hjs.user.controller.reqeust.JoinRequest;
 import lionpostproject.hjs.user.controller.reqeust.LoginRequest;
 import lionpostproject.hjs.user.dto.UserDTO;
-import lionpostproject.hjs.user.dto.UserDTOMapper;
 import lionpostproject.hjs.user.entity.User;
 import lionpostproject.hjs.user.repostiory.JpaUserRepository;
 import lionpostproject.hjs.user.service.verification.LoginSecurityService;
@@ -25,18 +24,11 @@ public class UserServiceIml implements UserService {
 
     private final JpaUserRepository jpaUserRepository;
 
-
-    private final UserDTOMapper userDTOMapper;
-
-
     private final JoinMapper mappers;
-
 
     private final SignUpSecurityService signUpSecurityService;
 
-
     private final LoginSecurityService loginSecurityService;
-
 
     public static final String SESSION_KEY = "id";
 
@@ -47,11 +39,12 @@ public class UserServiceIml implements UserService {
 
         User user = mappers.user(joinRequest);
 
+
         session.setAttribute(SESSION_KEY ,user.getEmail());
 
         jpaUserRepository.save(user);
 
-        return userDTOMapper.apply(user);
+        return mappers.userDTO(user);
     }
 
     @Override
@@ -64,7 +57,7 @@ public class UserServiceIml implements UserService {
         }else {
             throw new RuntimeException("사용자 의 정보가 없습니다.");
         }
-        return userDTOMapper.apply(user);
+        return  mappers.userDTO(user);
     }
 
     @Override

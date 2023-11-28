@@ -2,10 +2,7 @@ package lionpostproject.hjs.user.entity;
 
 import jakarta.persistence.*;
 import lionpostproject.hjs.blog.entity.Post;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id

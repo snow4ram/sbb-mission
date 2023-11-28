@@ -36,6 +36,13 @@ dependencies {
 	//필드에서 사용하는 MapStruct Mapper 적용하기 위함
 	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 
+	//QueryDSL 기능 추가
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor"com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 
 	//MapStruct Test 에서 사용하는 gradle
@@ -66,3 +73,8 @@ tasks.named('bootBuildImage') {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+clean {
+	delete file('src/main/generated')
+}
+

@@ -1,12 +1,11 @@
 package lionpostproject.hjs.user.service.verification;
 
+import lionpostproject.hjs.user.exception.SignInException;
 import lionpostproject.hjs.user.repostiory.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,9 +28,10 @@ public class SignUpSecurityService {
 
         if (email.length() >= 5 || email.length() <= 20) {
             if (!matcher.matches()){
-                throw new RuntimeException("아이디: 5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다");
+                throw new SignInException("아이디: 5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다");
             }
         }
+
 
         boolean account= jpaUserRepository.findByEmail(email)
                 .stream()
@@ -39,7 +39,7 @@ public class SignUpSecurityService {
                         duplicateUserId.getEmail().equals(email));
 
         if (account) {
-            throw new RuntimeException("아이디가 중복 상태 입니다.");
+            throw new SignInException("아이디가 중복 상태 입니다.");
         }
     }
 

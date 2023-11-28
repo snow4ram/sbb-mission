@@ -34,7 +34,7 @@ public class LoginController {
 
 
     @PostMapping("/join")
-    public ResponseEntity<LoginResponse> signUpForm(@Validated @RequestBody final JoinRequest joinRequest , final HttpSession session) {
+    public ResponseEntity<LoginResponse> signUpForm(@Validated @RequestBody final JoinRequest joinRequest ,final HttpSession session) {
 
         UserDTO join = userService.join(joinRequest, session);
 

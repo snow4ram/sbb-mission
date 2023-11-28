@@ -1,4 +1,4 @@
-package lionpostproject.hjs.blog.controller.request;
+package lionpostproject.hjs.blog.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,6 +10,6 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home() {
-        return "redirect:/items";
+        return "redirect:/api/user/list";
     }
 }

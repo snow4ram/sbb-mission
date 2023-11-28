@@ -31,8 +31,11 @@ public class PostController {
 
     @GetMapping("/list")
     public String welcome(Model model) {
+        //change
         List<Post> postAll = posts.findAll();
+
         model.addAttribute("postAll", postAll);
+
         return "/board/list";
     }
 
@@ -67,26 +70,17 @@ public class PostController {
 
         log.info("search = {}" , searchId);
 
+        if (searchId == null || searchId.isEmpty() || searchId.isBlank()){
+            return "redirect:/api/user/list";
+        }
+
+        //change
         List<Post> search = posts.search(searchId);
 
         model.addAttribute("searchAll", search);
 
         return "/board/search";
     }
-
-//    @PostMapping("/search")
-//    public String search(@ModelAttribute SearchRequest searchRequest , Model model) {
-//
-//        log.info("search = {}" , searchRequest.getTitle());
-//
-//        List<Post> searchAll = posts.search(searchRequest.getTitle());
-//
-//        model.addAttribute("searchAll", searchAll);
-//
-//        return "/board/search";
-//    }
-
-
 
 
     @DeleteMapping("/{postId}")

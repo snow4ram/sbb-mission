@@ -20,10 +20,10 @@ public class LoginResponse {
 
 
     public LoginResponse(UserDTO userDTO) {
-        this.id = userDTO.id();
-        this.name = userDTO.name();
-        this.email = userDTO.email();
-        this.password = userDTO.password();
-        this.birthday = userDTO.birthday();
+        this.id = userDTO.getId();
+        this.name = userDTO.getName();
+        this.email = userDTO.getEmail();
+        this.password = userDTO.getPassword();
+        this.birthday = userDTO.getBirthday();
     }
 }

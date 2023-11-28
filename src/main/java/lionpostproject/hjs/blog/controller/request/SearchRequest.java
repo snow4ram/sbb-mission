@@ -15,7 +15,7 @@ public class SearchRequest {
     private String title;
 
 
-    public SearchRequest(String title) {
+    public SearchRequest(final String title) {
         this.title = title;
     }
 }
